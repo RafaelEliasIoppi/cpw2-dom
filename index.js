@@ -27,6 +27,12 @@ function show(){
       * Recupera os valores dos campos de texto cujo o id='fname' e id='lname' e apresente o nome
       * e o sobrenome de uma pessoa (separado por um espaço) na div id='result'
       */
+    var firstName = document.getElementById('fname').value;
+    var lastName = document.getElementById('lname').value;
+    var fullName = firstName + ' ' + lastName;
+
+document.getElementById('result').textContent = 'Nome Completo: ' + fullName;
+
 }
 
 /**
@@ -53,6 +59,47 @@ function search(){
      *
      * Além disso, a função removeAllChildren abaixo também pode ser útil para o desenvolvimento da solução
      */
+
+
+    function search() {
+        // Limpar a div 'search' antes de exibir os resultados
+        removeAllChildren('search');
+    
+        // Obter o texto digitado no campo de texto
+        var searchText = document.getElementById('name').value.toLowerCase();
+    
+        // Array de nomes de exemplo
+        var nomes = ["Rafael", "Roberto", "Rogério", "João", "Maria", "Rosana", "Ronaldo"];
+    
+        // Filtrar os nomes que começam com o texto digitado
+        var resultados = nomes.filter(function(nome) {
+            return nome.toLowerCase().startsWith(searchText);
+        });
+    
+        // Exibir os resultados na div 'search'
+        var searchDiv = document.getElementById('search');
+        if (resultados.length > 0) {
+            var ul = document.createElement('ul');
+            resultados.forEach(function(resultado) {
+                var li = document.createElement('li');
+                li.textContent = resultado;
+                ul.appendChild(li);
+            });
+            searchDiv.appendChild(ul);
+        } else {
+            searchDiv.textContent = 'Nenhum resultado encontrado.';
+        }
+    }
+    
+    function removeAllChildren(elementId) {
+        var parent = document.getElementById(elementId);
+        while (parent.firstChild) {
+            parent.removeChild(parent.firstChild);
+        }
+    }
+    
+    // Chamar a função de pesquisa sempre que o usuário digitar no campo de texto
+    document.getElementById('name').addEventListener('input', search);
 
 }
 
